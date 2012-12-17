@@ -44,14 +44,14 @@
 
     var contentNode = $(new_content);
 
-    insertionNode.trigger('cocoon:before-insert', [contentNode]);
+    insertionNode.trigger('cocoon:before-insert', [contentNode, $this]);
 
     // allow any of the jquery dom manipulation methods (after, before, append, prepend, etc)
     // to be called on the node.  allows the insertion node to be the parent of the inserted
     // code and doesn't force it to be a sibling like after/before does. default: 'before'
     var addedContent = insertionNode[insertionMethod](contentNode);
 
-    insertionNode.trigger('cocoon:after-insert', [contentNode]);
+    insertionNode.trigger('cocoon:after-insert', [contentNode, $this]);
   });
 
 
@@ -62,7 +62,7 @@
 
     e.preventDefault();
 
-    trigger_node.trigger('cocoon:before-remove', [node_to_delete]);
+    trigger_node.trigger('cocoon:before-remove', [node_to_delete, $this]);
 
 
     var timeout = trigger_node.data('remove-timeout') || 0;
@@ -74,7 +74,7 @@
           $this.prev("input[type=hidden]").val("1");
           $this.closest(".nested-fields").hide();
       }
-      trigger_node.trigger('cocoon:after-remove', [node_to_delete]);
+      trigger_node.trigger('cocoon:after-remove', [node_to_delete, $this]);
     }, timeout);
   });
 
